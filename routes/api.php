@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,12 @@ Route::controller(CategoryController::class)->group(function(){
     Route::put('categories/{category}', 'update')->name('categories.update');
     Route::delete('categories/{category}', 'destroy')->name('categories.delete');
 });
+
+Route::controller(PostController::class)->group(function(){
+    Route::post('posts', 'store')->name('posts.store');
+    Route::get('posts', 'index')->name('posts.index');
+    Route::get('posts/{post}', 'show')->name('posts.show');
+    Route::put('posts/{post}', 'update')->name('posts.update');
+    Route::delete('posts/{post}', 'destroy')->name('posts.delete');
+});
+

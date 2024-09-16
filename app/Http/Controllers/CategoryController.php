@@ -12,16 +12,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::included()
-            ->filter()
-            ->sort()
-            ->getOrPaginate();
-       //$categories=Category::all();
-       //$categories = Category::included();
-        //$categories=Category::included()->filter();
-        //$categories=Category::included()->filter()->sort()->get();
-        //$categories=Category::included()->filter()->sort()->getOrPaginate();
-        return response()->json($categories);
+        //$category=Category::all();
+        $category = Category::included()->get();
+        //$category=Category::included()->filter();
+        //$category=Category::included()->filter()->sort()->get();
+        //$category=Category::included()->filter()->sort()->getOrPaginate();
+        return response()->json($category);
     }
 
     /**
@@ -53,28 +49,24 @@ class CategoryController extends Controller
     public function show($id) //si se pasa $id se utiliza la comentada
     {  
         
-        $category = Category::findOrFail($id);
-        // $category = Category::with(['posts.user'])->findOrFail($id);
-        // $category = Category::with(['posts'])->findOrFail($id);
-        // $category = Category::included();
-       // $category = Category::included()->findOrFail($id);
+        $category = Category::included()->findOrFail($id);
         return response()->json($category);
-        //http://api.codersfree1.test/v1/categories/1/?included=posts.user
+        //http://tranquilidad.test/v1/categories/1/?included=plantilla
+        
 
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $category
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255|unique:categories,slug,' . $category->id,
+            'category_name' => 'required|max:255' . $category->id,
 
         ]);
 
